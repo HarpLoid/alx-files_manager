@@ -1,19 +1,16 @@
-const MongoClient = require('mongodb').MongoClient;
-
+const { MongoClient } = require('mongodb');
 
 const url = 'mongodb://localhost:27017';
 
-
 const dbName = 'files_manager';
 
-
-MongoClient.connect(url, { useUnifiedTopology: true }, function (err, client) {
+MongoClient.connect(url, { useUnifiedTopology: true }, (err, client) => {
   if (err) {
     console.error('error connecting to MongoDB: ', err);
     return;
   }
 
-  console.log("Connected successfully");
+  console.log('Connected successfully');
 
   const db = client.db(dbName);
 
@@ -33,9 +30,7 @@ function checkAndInsert(db, collectionName, requiredCount) {
     }
 
     if (count < requiredCount) {
-      const documents = Array.from({ length: requiredCount - count }, (_, i) => {
-        return { name: `${collectionName} ${i + count + 1}` };
-      });
+      const documents = Array.from({ length: requiredCount - count }, (_, i) => ({ name: `${collectionName} ${i + count + 1}` }));
 
       collection.insertMany(documents, (err, result) => {
         if (err) {

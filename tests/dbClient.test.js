@@ -25,5 +25,4 @@ describe('dbClient', () => {
     const filesCount = await dbClient.nbFiles();
     expect(filesCount).to.equal(1);
   });
-
 });

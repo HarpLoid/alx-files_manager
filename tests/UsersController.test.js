@@ -4,10 +4,10 @@ import chaiHttp from 'chai-http';
 import app from '../server';
 
 chai.use(chaiHttp);
-const expect = chai.expect;
+const { expect } = chai;
 
-describe('UsersController Endpoints', () => {
-  it('POST /users responds with status 400 when email is missing', async () => {
+describe('usersController Endpoints', () => {
+  it('pOST /users responds with status 400 when email is missing', async () => {
     const response = await request(app)
       .post('/users')
       .send({ password: 'testPassword' });
@@ -15,7 +15,7 @@ describe('UsersController Endpoints', () => {
     expect(response.body).to.have.property('error').to.equal('Missing email');
   });
 
-  it('POST /users responds with status 400 when password is missing', async () => {
+  it('pOST /users responds with status 400 when password is missing', async () => {
     const response = await request(app)
       .post('/users')
       .send({ email: 'test@example.com' });
@@ -23,12 +23,11 @@ describe('UsersController Endpoints', () => {
     expect(response.body).to.have.property('error').to.equal('Missing password');
   });
 
-  it('POST /users responds with status 400 when user already exists', async () => {
+  it('pOST /users responds with status 400 when user already exists', async () => {
     const response = await request(app)
       .post('/users')
       .send({ email: 'test@example.com', password: 'testPassword' });
     expect(response).to.have.status(400);
     expect(response.body).to.have.property('error').to.equal('Already exist');
   });
-
 });
