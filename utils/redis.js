@@ -42,10 +42,11 @@ class RedisClient {
   }
 
   async del(key) {
-    return new Promise((resolve, reject) => {
+    // eslint-disable-next-line no-unused-vars
+    return new Promise((resolve, _reject) => {
       this.client.del(key, (err) => {
         if (err) {
-          reject(false);
+          resolve(false);
         } else {
           resolve(true);
         }
@@ -53,6 +54,6 @@ class RedisClient {
     });
   }
 }
-const redisClient = new RedisClient();
 
+const redisClient = new RedisClient();
 export default redisClient;
